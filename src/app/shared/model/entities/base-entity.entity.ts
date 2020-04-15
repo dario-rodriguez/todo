@@ -1,9 +1,14 @@
-import { PrimaryGeneratedColumn, VersionColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
-import { Exclude } from 'class-transformer';
 import { ApiHideProperty } from '@nestjs/swagger';
+import { CrudValidationGroups } from '@nestjsx/crud';
+import { Exclude } from 'class-transformer';
+import { IsDefined, IsEmpty, IsInt } from 'class-validator';
+import { CreateDateColumn, PrimaryGeneratedColumn, UpdateDateColumn, VersionColumn } from 'typeorm';
 
 export abstract class BaseEntity {
   @PrimaryGeneratedColumn('increment')
+  @IsEmpty({ groups: [CrudValidationGroups.CREATE] })
+  @IsDefined({ groups: [CrudValidationGroups.UPDATE] })
+  @IsInt({ groups: [CrudValidationGroups.UPDATE] })
   id!: number;
 
   @VersionColumn({ default: 1 })
