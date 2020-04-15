@@ -1,4 +1,4 @@
-import { Controller, UseGuards, BadRequestException } from '@nestjs/common';
+import { Controller, UseGuards, BadRequestException, Get, Param } from '@nestjs/common';
 import { Crud, CrudAuth, Override, CrudController, ParsedRequest, CrudRequest } from '@nestjsx/crud';
 import { CrudType } from '@devon4node/common/serializer';
 import { Todo } from '../model/entities/todo.entity';
@@ -32,6 +32,11 @@ export class TodoCrudController {
 
   get base(): CrudController<Todo> {
     return this;
+  }
+
+  @Get('toggle/:id')
+  toggleTodo(@Param('id') id: number): Promise<Todo> {
+    return this.service.toggle(id);
   }
 
   @Override()
