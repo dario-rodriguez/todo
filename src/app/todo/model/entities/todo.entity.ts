@@ -3,6 +3,7 @@ import { IsBoolean, IsDefined, IsEmpty, IsInt, IsOptional, IsString, Max, MaxLen
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 import { User } from '../../../core/user/model/entities/user.entity';
 import { BaseEntity } from '../../../shared/model/entities/base-entity.entity';
+import { ApiProperty } from '@nestjs/swagger';
 
 @Entity()
 export class Todo extends BaseEntity {
@@ -18,6 +19,7 @@ export class Todo extends BaseEntity {
   @IsInt()
   @Min(1)
   @Max(5)
+  @ApiProperty({ type: 'boolean' })
   priority!: number;
   @Column('boolean', { nullable: false, default: false })
   @IsEmpty({ groups: [CrudValidationGroups.CREATE] })

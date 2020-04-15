@@ -3,6 +3,7 @@ import { Crud } from '@nestjsx/crud';
 import { CrudType } from '@devon4node/common/serializer';
 import { Todo } from '../model/entities/todo.entity';
 import { TodoCrudService } from '../services/todo.crud.service';
+import { ApiTags, ApiBearerAuth } from '@nestjs/swagger';
 
 @Crud({
   model: {
@@ -11,6 +12,8 @@ import { TodoCrudService } from '../services/todo.crud.service';
 })
 @CrudType(Todo)
 @Controller('todo/todos')
+@ApiTags('todo')
+@ApiBearerAuth()
 export class TodoCrudController {
   constructor(public service: TodoCrudService) {}
 }
